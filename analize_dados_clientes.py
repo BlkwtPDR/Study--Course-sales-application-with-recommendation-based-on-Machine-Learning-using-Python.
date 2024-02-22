@@ -46,4 +46,8 @@ def leitura():
 usrs=leitura()
 print(leitura)
 
+
+from main import cadastro
+
+
 usuario=

@@ -70,13 +70,15 @@ def fazerlogin():
     login_valido = main.logar(acessop1)
     senha_valida = main.chave(acessop2)
     acesso_valido = main.log2(acessop1, acessop2)
+    acesso= main.acessouzr(acessop1)
 
     if login_valido and senha_valida and acesso_valido:
-        fundo
+        print(login_valido,senha_valida,acesso_valido)
         janela_vendedor.mainloop()
     elif login_valido and senha_valida:
         janela_cliente.mainloop()
     else:
+        print("de merda")
         return False
 
 texto = customtkinter.CTkLabel(janela, text="Tela principal")
@@ -161,10 +163,12 @@ botao_cadastro.pack(padx=10,pady=10)
 botao_mprodutos=customtkinter.CTkButton(janela_vendedor,text="Meus Produtos")
 botao_mprodutos.pack(padx=10,pady=10)
 
-janela.mainloop()
-
 janela_cliente = ctk.CTk()
 janela_cliente.geometry("400x200")
+
+janela.mainloop()
+
+
 
 #def escolha():
    # tabela=pd.read_excel(r"C:\Users\Public\apis\produtos\produtos.xlsx")

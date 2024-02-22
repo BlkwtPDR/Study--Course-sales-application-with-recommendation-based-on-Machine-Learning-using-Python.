@@ -75,10 +75,23 @@ def cadastrovenda():
 
     produtos_dt=pd.DataFrame(nomep.values())
     prdct=pd.concat([prdct,produtos_dt],ignore_index=True)
-    prdct.to_excel("C:\\Users\\Public\\apis\\produtos\\produtos.xlsx",index =False )
+    prdct.to_excel(r"C:\\Users\\Public\\apis\\produtos\\produtos.xlsx",index =False )
 
+def acessouzr(mail):
+    linha=0
+    tabela=pd.read_excel(r"C:\Users\Public\apis\clientes\dados_clientes.xlsx")
+    for email in tabela['email']:
+        linha+=1
+        if email== mail:
+            return linha
 
-
+def emailind(mail):
+    tabl=pd.read_excel(r"C:\Users\Public\apis\clientes\dados_clientes.xlsx")
+    list_mail=tabl['mail']
+    if mail in list_mail:
+        return True
+    else:
+        return False
 
 
 
@@ -90,6 +103,7 @@ def cadastro(nome1,idade1,cpf1,genero1,local1,email1,senha1):
     tabela = pd.read_excel(r"C:\Users\Public\apis\clientes\dados_clientes.xlsx")
     linhas=tabela.shape[0]
     usuario=linhas+1
+    carrinho=[]
     usuarios[usuario] = {}
     usuarios[usuario] = {
         'nome': nome1,
@@ -99,7 +113,8 @@ def cadastro(nome1,idade1,cpf1,genero1,local1,email1,senha1):
         'local': local1,
         'email': email1,
         'senha': senha1,
-        'tipoacesso': acessotp
+        'tipoacesso': acessotp,
+        'compras':carrinho
     }
 
     user_dt=pd.DataFrame(usuarios.values())
@@ -115,7 +130,6 @@ def logar(acesso):
     print('email é ',cklg['email'])
     for email in cklg['email']:
         if email == acesso:
-            print("login valido")
             return True
     print("login invalido")
     return False
@@ -133,21 +147,21 @@ def chave(acesso2):
     return False
 
 
+def log2(acesso, acesso2):
+    doc_ck = pd.read_excel(r"C:\Users\Public\apis\clientes\dados_clientes.xlsx")
+    dtf = pd.DataFrame(doc_ck)
 
-
-
-def log2(acesso,acesso2):#trocar usuarios por tabela
-    doc_ck=pd.read_excel(r"C:\Users\Public\apis\clientes\dados_clientes.xlsx")
-    dtf=pd.DataFrame(doc_ck)
     if logar(acesso) and chave(acesso2):
-        for tipoacesso in dtf['tipoacesso']:
-            if tipoacesso:
-                print('vendedor')
-                return True
+        for indice, email in enumerate(dtf['email']):
+            if email == acesso:
+                tipo_acesso = dtf.at[indice, 'tipoacesso']
+                if tipo_acesso:
+                    print('vendedor')
+                    return True
         print('cliente')
         return False
-
-
+# def pega_acesso(linha):
+#     indice=linha
 #
 # nome1=input('digite o nome')
 # idade1=input('digite idd')
@@ -166,13 +180,3 @@ def log2(acesso,acesso2):#trocar usuarios por tabela
 # print(nome,type(nome))
 # tempcpf_check(cpf,nome)
 
-
-
-cadastrovenda()
-
-cadastrovenda()
-
-
-cadastrovenda()
-
-cadastrovenda()

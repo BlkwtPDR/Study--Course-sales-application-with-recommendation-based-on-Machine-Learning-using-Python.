@@ -1,0 +1,9 @@
+BoxLayout:
+    orientation: 'vertical'
+    size: root.width, root.height  # Define o tamanho do BoxLayout como o tamanho da tela
+
+    Button:
+        text: 'Categorias'
+        on_press: app.mostra_categorias(self)
+        size: dp(100), dp(50)
+        pos_hint: {'top': 1}
